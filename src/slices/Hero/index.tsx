@@ -1,8 +1,13 @@
 import { FC } from "react";
 import { Content } from "@prismicio/client";
-import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
-import { PrismicNextLink } from "@prismicio/next";
+import {
+  PrismicRichText,
+  PrismicText,
+  SliceComponentProps,
+} from "@prismicio/react";
 import { Bounded } from "@/components/Bounded";
+import { Heading } from "@/components/Heading";
+import { ButtonLink } from "@/components/ButtonLink";
 
 /**
  * Props for `Hero`.
@@ -17,10 +22,27 @@ const Hero: FC<HeroProps> = ({ slice }) => {
     <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
+      className="bg-brand-pink relative h-dvh overflow-hidden text-zinc-800 bg-texture"
     >
-      <PrismicRichText field={slice.primary.heading} />
-      <PrismicRichText field={slice.primary.body} />
-      <PrismicNextLink field={slice.primary.button} />
+      <div className="absolute inset-0 mx-auto mt-24 grid max-w-6xl grid-rows-[1fr,auto] place-items-end px-6 py-[clamp(2.5rem,2vw+1rem,4rem)]">
+        <Heading className="relative max-w-2xl place-self-start" size="lg">
+          <PrismicText field={slice.primary.heading} />
+        </Heading>
+
+        <div className="flex relative w-full flex-col items-center justify-between gap-[clamp(0.5rem,2vw+0.25rem,1rem)] lg:flex-row">
+          <div className="max-w-[45ch] font-semibold text-[clamp(1rem, 1.2vw + 0.5rem, 1.125rem)] leading-[clamp(1.1rem, 1.5vw + 0.5rem, 1.25rem)]">
+            <PrismicRichText field={slice.primary.body} />
+          </div>
+          <ButtonLink
+            field={slice.primary.button}
+            icon="skateboard"
+            size="lg"
+            className="z-20 mt-2 block"
+          >
+            {slice.primary.button.text}
+          </ButtonLink>
+        </div>
+      </div>
     </Bounded>
   );
 };
